@@ -1,4 +1,5 @@
 push #20
 push #50
-add 
-hlt 
+add
+add
+hlt
