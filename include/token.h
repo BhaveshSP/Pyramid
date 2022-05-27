@@ -15,6 +15,9 @@ typedef enum _TokenType TokenType;
 enum _TokenInstruction{
 	ADD,
 	PUSH,
+	SUB,
+	MUL,
+	INCR,
 	HLT
 };
 

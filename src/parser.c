@@ -22,7 +22,9 @@ ParserStatus parser_start(TokenList* list,const char* source ){
 		lex[lexi] = '\0';
 		// If spaces after each line 
 		// this handles the empty chars in the program 
-		if(strlen(lex)==0){
+		if(lexi == 0 && (source[i] == '\t'|| source[i] == '\n')){
+			i++;
+			if (source[i] == '\n') line++;
 			continue;
 		}
 		// number starts with # symbol 
@@ -44,7 +46,7 @@ ParserStatus parser_start(TokenList* list,const char* source ){
 				add_token_to_list(list,token);
 			}else{
 				// Instruction is Not defined in the Grammer 
-				printf("Syntax Error: No such Instruction %s\n",lex);
+				printf("Line %d : Syntax Error: No such Instruction %s\n",line,lex);
 				return PARSER_SYNTAX_ERROR;
 			}
 		}
@@ -82,10 +84,21 @@ TokenInstruction parser_get_instr(const char* buf ){
 	if(strcmp(buf,"add")==0){
 		return ADD;
 	}
+	if(strcmp(buf,"sub")==0){
+		return SUB;
+	}
+	if(strcmp(buf,"mul")==0){
+		return MUL;
+	}
+	
+	if(strcmp(buf,"incr")==0){
+		return INCR;
+	}
 	
 	if(strcmp(buf,"hlt")==0){
 		return HLT;
 	}
+
 	// Otherwise Return -1 
 	return (TokenInstruction)-1;
 }

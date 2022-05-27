@@ -1,7 +1,5 @@
 #include "../include/runtime.h"
 
-
-
 void runtime_start(Runtime* runtime){
 	runtime->sp = -1 ;
 	runtime->ip = 0;
@@ -21,6 +19,24 @@ void runtime_start(Runtime* runtime){
 				push32(runtime,a+b);
 				break;
 			}
+			case SUB_STACK:{
+				uint32_t a = pop32(runtime);
+				uint32_t b = pop32(runtime);
+				push32(runtime,a-b);
+				break;
+			}
+			case MUL_STACK:{
+				uint32_t a = pop32(runtime);
+				uint32_t b = pop32(runtime);
+				push32(runtime,a*b);
+				break;
+			}
+			case INCR_STACK:{
+				uint32_t a = pop32(runtime);
+				push32(runtime,a+1);
+				break;
+			}
+			
 			case HLT_OP:{
 				runtime->result = (uint8_t) pop32(runtime);
 				runtime->is_running = false;

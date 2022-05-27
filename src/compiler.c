@@ -34,14 +34,27 @@ void compiler_start(Compiler* compiler){
 					break;
 				case ADD:
 					// Write Op Code to the Byte Buffer 
-						
 					write_byte_buffer_8(compiler->byte_buffer,ADD_STACK);
 					break;
+				case SUB:
+					// Write Op Code to the Byte Buffer 
+					write_byte_buffer_8(compiler->byte_buffer,SUB_STACK);
+					break;
+				case MUL:
+					// Write Op Code to the Byte Buffer 
+					write_byte_buffer_8(compiler->byte_buffer,MUL_STACK);
+					break;
+				case INCR:
+					// Write Op Code to the Byte Buffer 
+					write_byte_buffer_8(compiler->byte_buffer,INCR_STACK);
+					break;
+				
 				case HLT:
-					
+				
 					// Write Op Code to the Byte Buffer 
 					write_byte_buffer_8(compiler->byte_buffer,HLT_OP);
 					break;
+
 				default:
 					// Cannot Reach here but if does check when such a case araises
 					// and fix the issue
