@@ -30,13 +30,13 @@ struct _Token{
 typedef struct _Token Token;
 
 // Operations on Token ADT 
-Token* create_token(int type,int data,int line);
+void create_token(Token* token,int type,int data,int line);
 void destroy_token(Token* token);
 
 
 // Structure to Store TokenList or Sentence or List of Words
 struct _TokenList{
-	Token** data;
+	Token* data;
 	int ptr;
 	int size;
 };
@@ -44,7 +44,7 @@ struct _TokenList{
 typedef struct _TokenList TokenList;
 // Operations on TokenList ADT
 void create_token_list(TokenList* list, int size);
-void add_token_to_list(TokenList* list, Token* token);
+void add_token_to_list(TokenList* list, Token token);
 Token* get_token_from_list(TokenList* list, int position);
 void destroy_token_list(TokenList* list); 
 

@@ -26,11 +26,13 @@ ParserStatus parser_start(TokenList* list,const char* source ){
 			continue;
 		}
 		// number starts with # symbol 
+		Token token; 
 		if(lex[0]== '#'){
 			// Parse the number from the lex string 
 			int number = parser_get_number(lex);
-			// Create Token for the Number 
-			add_token_to_list(list,create_token(NUMBER,number,line));
+			// Create Token for the Number
+			create_token(&token,NUMBER,number,line);
+			add_token_to_list(list,token);
 		}else{
 			// Parse the Instruction from the lex string 
 			int inst = parser_get_instr(lex);
@@ -38,7 +40,8 @@ ParserStatus parser_start(TokenList* list,const char* source ){
 			// returned otherwise negative -1 
 			if(inst >=0){
 				// Create Token for the Instruction
-				add_token_to_list(list,create_token(INST,inst,line));
+				create_token(&token,INST,inst,line);
+				add_token_to_list(list,token);
 			}else{
 				// Instruction is Not defined in the Grammer 
 				printf("Syntax Error: No such Instruction %s\n",lex);
