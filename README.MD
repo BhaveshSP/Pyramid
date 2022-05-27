@@ -6,4 +6,4 @@ Uses a Stack Data Structure to Perform Operations like :
 * Addition
 * Substraction
 * Multiplication
-* Division
+* Incrementation
