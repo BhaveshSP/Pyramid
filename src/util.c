@@ -1,5 +1,6 @@
 #include "../include/util.h"
 
+// Read the Program File 
 char* read_file_ascii(const char* file_path){
 	FILE* file = fopen(file_path,"r");
 	// Check if the file exists 
@@ -24,4 +25,19 @@ char* read_file_ascii(const char* file_path){
 	// Add the endline character to show the end of line 
 	buf[size] = '\0';
 	return buf;
+}
+
+
+// Write to the ByteCode File 
+void write_ascii_to_file(const char* file_path,ByteBuffer* byte_buffer){
+	// Open File to Write Binary 
+	FILE* file = fopen(file_path,"wb");
+	// Check if the file can be created  
+	if(!file){
+		printf("Could not write to file %s\n",file_path);
+		return;
+	}
+	// Write the Buffer to the file of size ptr
+	fwrite(byte_buffer->buffer,1,byte_buffer->ptr,file);
+	fclose(file);
 }
