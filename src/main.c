@@ -6,11 +6,12 @@
 #include "../include/parser.h"
 #include "../include/compiler.h"
 #include "../include/bytebuffer.h"
+#include "../include/runtime.h"
 
 // Show Command Error if Incorrect Syntax is entered 
 void command_error(){
 	printf("Command Error : \n");
-	printf("Correct Syntax ./pyramid --compile file_name.pyrd");
+	printf("Correct Syntax ./pyramid --mode file_name.pyrd");
 }
 
 int main(int argc, char **argv){
@@ -19,6 +20,7 @@ int main(int argc, char **argv){
 		printf("Too Few Arguments Passed !!...\n");
 		return 1;
 	}
+	// Compile the Code 
 	if(strcmp(argv[1],"--compile") == 0){
 		// Get the file path to read the file 
 		char* source = read_file_ascii(argv[2]);
@@ -50,13 +52,26 @@ int main(int argc, char **argv){
 		}
 		// Write the Complete ByteCode of the Program to the file 
 		// with file name out.pyrdb
-		write_ascii_to_file("out.pyrdb",compiler.byte_buffer);
+		write_binary_to_file("out.pyrdb",compiler.byte_buffer);
 		// Free the resources allocated to the Byte Buffer 
 		destroy_byte_buffer(compiler.byte_buffer);
 		// Free the resources allocation to the Source Program 
 		free(source);
-	}else{
+	}
+	// Run the Code 
+	else if (strcmp(argv[1],"--run") == 0){
+		uint8_t* code = read_binary_from_file(argv[2]);
+		Runtime runtime;
+		runtime.code = code;
+		runtime_start(&runtime);
+		if(runtime.status != RUNTIME_SUCCESS){
+			return 1;
+		}
+		printf("Output %d",runtime.result);
+		return runtime.result;
+	}
+	else{
 		command_error();
 	}
-	return 0 ;
+	return 1 ;
 }
